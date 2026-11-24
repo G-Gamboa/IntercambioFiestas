@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intercambio navideño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Figtree:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700&family=Outfit:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="band top">
+  <div class="wrap">
+    <h1>Intercambio navideño</h1>
+    <p class="lede">Escribe los nombres y haz el sorteo. Después ve pasando el teléfono: cada quien ve solo su etiqueta, una sola vez, y te lo devuelve.</p>
+  </div>
+</header>
+
+<main class="band">
+  <div class="wrap" id="org">
+    <section class="card">
+      <div class="head"><h2 id="mainTitle">Participantes</h2><span id="count" class="muted"></span></div>
+      <p id="sampleNote" class="note">Nombres de ejemplo: se borran al agregar el primero tuyo. <button class="link" id="clearSample" type="button">Borrar ya</button></p>
+      <p id="doneHint" class="hint">Toca Entregar nombres y escribe tu PIN. Pásale el teléfono a cada persona; cuando te lo devuelva, toca Siguiente. También puedes empezar por alguien tocando su etiqueta.</p>
+      <div id="garland" class="garland"></div>
+
+      <div id="setup">
+        <form id="addForm" class="row" autocomplete="off">
+          <label for="newName" class="sr">Nombre</label>
+          <input id="newName" maxlength="40" placeholder="Escribe un nombre y presiona Enter">
+          <button class="btn ghost" type="submit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Agregar</button>
+        </form>
+        <p class="hint hint-sub">También puedes pegar varios nombres separados por coma o uno por línea.</p>
+        <p id="err" class="err" role="alert"></p>
+        <button id="draw" class="btn big" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg>Hacer sorteo</button>
+      </div>
+
+      <div id="turns">
+        <button id="deliverBtn" class="btn big" type="button"></button>
+        <p id="allDone" class="alldone"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Todos ya tienen su nombre. Que disfruten el intercambio.</p>
+        <div class="row end">
+          <button id="redo" class="btn ghost" type="button">Repetir sorteo</button>
+          <button id="edit" class="btn ghost" type="button">Editar la lista</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="card">
+        <h2>Detalles</h2>
+        <div class="fields">
+          <label for="ev">Nombre del intercambio<input id="ev" maxlength="60"></label>
+          <div class="two">
+            <label for="budget">Presupuesto<span class="money"><span>Q</span><input id="budget" inputmode="numeric" maxlength="6"></span></label>
+            <label for="date">Fecha<input id="date" type="date"></label>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Quiénes no se pueden tocar</h2>
+        <p class="hint hint-sub">Útil para parejas o hermanos: no se regalarán entre sí.</p>
+        <div class="row">
+          <label for="exA" class="sr">Persona 1</label><select id="exA"></select>
+          <span class="muted">y</span>
+          <label for="exB" class="sr">Persona 2</label><select id="exB"></select>
+          <button id="exAdd" class="btn ghost" type="button">Agregar</button>
+        </div>
+        <ul id="exList" class="chips"></ul>
+        <p id="exNote" class="hint">Los cambios se aplican al repetir el sorteo.</p>
+        <label class="check" for="recip"><input type="checkbox" id="recip">Evitar que dos personas se regalen mutuamente</label>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<footer class="band foot">
+  <div class="wrap footrow">
+    <span>Intercambio navideño</span>
+    <a class="boa" href="https://boaestudio.com" target="_blank" rel="noopener">Desarrollado por <span class="boa-logo"><b>boa<i>.</i></b> estudio</span></a>
+  </div>
+</footer>
+
+<!-- Vista de entrega: pantalla completa, una persona a la vez -->
+<div id="dv" class="dv" hidden role="dialog" aria-modal="true" aria-labelledby="dvTitle">
+  <div class="dvtop">
+    <span id="dvProg" class="dvprog"></span>
+    <div class="bar" aria-hidden="true"><span id="dvBar"></span></div>
+    <button type="button" id="dvExit" class="dvexit">Salir</button>
+  </div>
+  <div id="dvMain" class="dvmain"></div>
+  <span class="dvsig">Desarrollado por <span class="boa-logo"><b>boa<i>.</i></b> estudio</span></span>
+</div>
+
+<div id="ov" class="ov" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT" id="dlg"></div></div>
+<div id="toast" class="toast" hidden role="status"><span id="toastT"></span><button id="undo" type="button">Deshacer</button></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
