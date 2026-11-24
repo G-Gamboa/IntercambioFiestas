@@ -46,12 +46,13 @@ Los datos se guardan en el `localStorage` del navegador con la clave `intercambi
 
 El footer lleva siempre la firma "Desarrollado por boa. estudio" con enlace a https://boaestudio.com (Outfit Bold/Light, punto en verde Selva #2F7D5B). La vista de entrega también la muestra.
 
-## Publicación
+## Despliegue
 
-- Destino previsto: subdominio de boaestudio.com (por ejemplo `intercambio.boaestudio.com`).
-- Hosting estático: solo se sube la carpeta `sitio/`.
+El sitio se publica en GitHub Pages con el workflow `.github/workflows/deploy-pages.yml`:
 
-## Pendientes
+- Se ejecuta en cada push a `main` y también a mano desde la pestaña **Actions** (botón *Run workflow*).
+- Sube la carpeta `sitio/` tal cual, sin pasos de build, y la publica con las acciones oficiales de GitHub Pages.
+- Si llegan dos pushes seguidos, el segundo despliegue espera a que termine el primero.
+- Requisito único: en **Settings → Pages → Build and deployment → Source**, elegir **GitHub Actions**.
 
-- Meta tags Open Graph (vista previa al compartir por WhatsApp) y favicon.
-- Publicar en hosting estático y apuntar el subdominio.
+Mientras no haya dominio personalizado, el sitio vive en `https://<usuario>.github.io/<nombre-repo>/`. Por eso todas las rutas en `index.html` son relativas (`css/...`, `js/...`, sin `/` al inicio). El dominio personalizado se configura en **Settings → Pages → Custom domain**; no hace falta un archivo `CNAME` en el repositorio.
